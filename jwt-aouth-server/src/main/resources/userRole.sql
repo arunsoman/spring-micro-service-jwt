@@ -41,5 +41,5 @@ INSERT INTO oauth_client_details (client_id,resource_ids,client_secret,
   access_token_validity, refresh_token_validity, autoapprove)
 VALUES('web_app','reader','reader',
 'FOO',
-'"implicit","refresh_token", "client_credentials", "authorization_code"', 'www.flytxt.com','"FOO_READ", "FOO_WRITE"',
+'implicit,refresh_token,client_credentials,password,authorization_code', 'www.flytxt.com','FOO_READ,FOO_WRITE',
 10,11, 'true');
