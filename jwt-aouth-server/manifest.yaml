@@ -1,0 +1,2 @@
+main_file: target/jwtoathserver-0.0.1-SNAPSHOT.jar
+build_command: mvn package
