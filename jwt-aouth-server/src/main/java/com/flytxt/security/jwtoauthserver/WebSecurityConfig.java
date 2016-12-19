@@ -1,5 +1,7 @@
 package com.flytxt.security.jwtoauthserver;
 
+import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,9 +11,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-
-import javax.servlet.http.HttpServletResponse;
-import javax.sql.DataSource;
 
 @Configuration
 class WebSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -32,6 +31,12 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.authenticationEntryPoint(
 						(request, response, authException) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED))
 				.and().authorizeRequests().antMatchers("/**").authenticated().and().httpBasic();
+		/*
+		http.formLogin().loginPage("/login").permitAll().and()
+				.requestMatchers().antMatchers( "/oauth/authorize", "/oauth/confirm_access","/oauth/token",
+						"/oauth/check_token","/oauth/token_key","/console")
+				.and()
+				.authorizeRequests().anyRequest().authenticated();*/
 	}
 
 	@Override
