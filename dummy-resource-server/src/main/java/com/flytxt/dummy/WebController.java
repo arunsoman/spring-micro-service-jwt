@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/foo")
 public class WebController {
 
-    @PreAuthorize("hasAuthority('FOO_READ')")
+    @PreAuthorize("hasAuthority('shiju.john')")
     @RequestMapping(method = RequestMethod.GET)
     public String readFoo() {
         return "read foo " + UUID.randomUUID().toString();

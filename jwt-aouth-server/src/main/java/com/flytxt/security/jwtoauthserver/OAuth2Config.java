@@ -21,8 +21,9 @@ import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFacto
 @Configuration
 @EnableAuthorizationServer
 public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
-   @Autowired
-   DataSource dataSource;
+  
+	@Autowired
+	DataSource dataSource;
 
     @Autowired
     @Qualifier("authenticationManagerBean")
