@@ -1,10 +1,9 @@
-package com.flytxt.dummy;
+package com.flytxt.security.rsc;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
@@ -12,11 +11,8 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Res
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 
-import com.flytxt.security.rsc.JwtConfig;
-
 @Configuration
 @EnableResourceServer
-@Import(JwtConfig.class)
 @EnableConfigurationProperties
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter{
 	
@@ -42,12 +38,6 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter{
         .csrf().disable()
         .authorizeRequests()        
         .and().authorizeRequests().antMatchers("/**").authenticated();
-        
-        /*.antMatchers("/**").authenticated()
-        .antMatchers(HttpMethod.GET, "/foo").hasAuthority("FOO_READ")
-        .antMatchers(HttpMethod.POST, "/foo").hasAuthority("FOO_WRITE");*/
-
-		
     }
 	
 }
