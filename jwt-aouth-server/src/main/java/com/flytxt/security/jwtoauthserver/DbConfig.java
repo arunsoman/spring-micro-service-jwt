@@ -19,12 +19,16 @@ public class DbConfig {
 		EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
 		EmbeddedDatabase db = builder
 			.setType(EmbeddedDatabaseType.H2) //.H2 or .DERBY
-			.addScript("userRole.sql")
-			
+			.addScript("userRole.sql")			
 			//.addScript("db/sql/insert-data.sql")
 			.build();
+		
+		
+		
 		return db;
-	}@Bean
+	}
+	
+	@Bean
 	public ServletRegistrationBean h2servletRegistration() {
 	    ServletRegistrationBean registration = new ServletRegistrationBean(new WebServlet());
 	    registration.addUrlMappings("/console/*");

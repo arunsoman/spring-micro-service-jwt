@@ -1,44 +1,49 @@
 
 package com.flytxt.security.rsc;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import java.io.IOException;
+
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
+import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
-import org.springframework.util.FileCopyUtils;
-
-import java.io.IOException;
 
 @Configuration
 public class JwtConfig{
-    @Autowired
-    JwtAccessTokenConverter jwtAccessTokenConverter;
-
-
-    @Bean
-    @Qualifier("tokenStore")
+  
+   	@Bean
+	@Primary
+	public DefaultTokenServices tokenServices() {
+		final DefaultTokenServices defaultTokenServices = new DefaultTokenServices();
+		defaultTokenServices.setTokenStore(tokenStore());
+		return defaultTokenServices;
+	}
+	
+	
+	@Bean
+	@Qualifier("tokenStore")
     public TokenStore tokenStore() {
-
-        System.out.println("Created JwtTokenStore");
-        return new JwtTokenStore(jwtAccessTokenConverter);
+		return new JwtTokenStore(accessTokenConverter());
     }
-
+    
     @Bean
-    protected JwtAccessTokenConverter jwtTokenEnhancer() {
-        JwtAccessTokenConverter converter =  new JwtAccessTokenConverter();
-        Resource resource = new ClassPathResource("public.cert");
-        String publicKey = null;
-        try {
-            publicKey = new String(FileCopyUtils.copyToByteArray(resource.getInputStream()));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        converter.setVerifierKey(publicKey);
-        return converter;
+    public JwtAccessTokenConverter accessTokenConverter() {
+	    final JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
+	    final Resource resource = new ClassPathResource("public.cert");
+	    String publicKey = null;
+	    try {
+	        publicKey = IOUtils.toString(resource.getInputStream());
+	    } catch (final IOException e) {
+	        throw new RuntimeException(e);
+	    }
+	    converter.setVerifierKey(publicKey);
+	    return converter;
     }
 }
