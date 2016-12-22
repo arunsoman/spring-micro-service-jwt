@@ -1,4 +1,4 @@
-package com.flytxt.security.jwtoauthserver;
+package com.flytxt.security.jwtoauthserver.authBuilder;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;

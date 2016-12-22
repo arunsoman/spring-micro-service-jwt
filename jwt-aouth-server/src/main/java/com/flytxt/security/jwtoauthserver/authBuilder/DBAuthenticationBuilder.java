@@ -1,4 +1,4 @@
-package com.flytxt.security.jwtoauthserver;
+package com.flytxt.security.jwtoauthserver.authBuilder;
 
 import javax.sql.DataSource;
 
@@ -11,7 +11,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
  * @author shiju.john
  *
  */
-@Profile("db")
+
 @Configuration
 public class DBAuthenticationBuilder implements AuthenticationType{
 
@@ -19,8 +19,6 @@ public class DBAuthenticationBuilder implements AuthenticationType{
 	@Autowired
 	DataSource dataSource;
 	
-	
-
 	@Override
 	public void setAuthenticationManager(AuthenticationManagerBuilder auth) throws Exception {
 		auth.jdbcAuthentication().dataSource(dataSource)

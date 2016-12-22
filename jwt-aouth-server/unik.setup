@@ -1,0 +1,4 @@
+sudo apr-get install -y docker
+sudo apr-get install -y jq
+sudo apr-get install -y virtualbox *
+sudo apr-get install -y maven
