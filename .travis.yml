@@ -1,0 +1,15 @@
+
+sudo: required
+services:
+  - mysql
+language: java
+jdk:
+  - oraclejdk8
+script: cd jwt-aouth-server &&  mvn clean jacoco:prepare-agent install jacoco:report surefire-report:report
+ 
+
+env:
+  global:
+   # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
+   #   via the "travis encrypt" command using the project repo's public key
+
