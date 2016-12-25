@@ -6,54 +6,36 @@ Representational state transfer** (REST)**  or RESTful Web services are one way 
 
 JSON Web Token (JWT) is an open standard (RFC 7519) that defines a compact and self-contained way for securely transmitting information between parties as a JSON object. This information can be verified and trusted because it is digitally signed. JWTs can be signed using a secret (with the HMAC algorithm) or a public/private key pair using RSA.
 
-# JOT & MICRO-services
+# JWT & MICRO-services
+REST based services are stateless by nature until we add security, but this needn't be the case if JWT is used. OAuth is another option but its complex, bloated & service to service communication without a web browser is tricky.
+With JWT there are following entities 
+-- User
+-- Client
+-- Auth server
+-- Services
+TODO: flow diagram
 
-# Overview
-
-Spring Security OAuth 2 is an implementation of OAuth 2 that built on top of Spring Security, which itself is a very extensible authentication framework. In our architecture we can have  **single**  Authorization Server which is responsible to issue access token which can be consumed by  **multiple**  Resource Servers.  In overall Spring Security authentication includes 2 steps, creating an authentication object for each request and applying authorization check depending on authentication.
+# Project Overview
+There is  **single**  Authorization Server responsible to issue access token which can be consumed by  **multiple**  Resource Servers.  In overall Spring Security authentication includes 2 steps, creating an authentication object for each request and applying authorization check depending on authentication.
 
 Following are the basic componets in  JWT (jot) based  Authetication service  framework
 
 1. Autherization server
-2. Resource Server
-
-1. 1. **Authorization server**
-
 The server which is responsible for managing authorizations and issuing access tokens to the  **clients**  for validating the  **Resource** identity. Authentication server is generating the token in JWT format, which is encrypted by using the Public /private key mechanism. An Authentication server contains following components.
 
-1. Data source configuration
-2. Web security configuration
-3. Oauth2 Token generator
-4. User Authentication
+  1. Data source configuration
+  H2 database is embedded with the authorization server, which is used to store the client configurations for validate the client. The client details are kept inside e the **oauth\_client\_details** table
 
-1.
-  1. 1.1Data Source configuration
+  2. Web security configuration
+  This is an extension of spring _WebSecurityConfigurerAdapter_. Enable the web-security parameters and user authentication provider set through this implementation.
 
-H2 database is embedded with the authorization server, which is used to store the client configurations for validate the client. The client details are kept inside e the **oauth\_client\_details** table
+  3. Oauth2 Token generator
+  This is an extension of spring AuthorizationServerConfigurerAdapter_._ Which willcreate a jwt token store.  (Using the key tool to generate the key store, which contains the public/ private key) and the token is getting encrypted by using this private key. The public key is shared across the Resource server for decrypt the token. Please make sure that all the resource server contains the same public key when the key is again generated.
 
-1.
-  1. 1.2Web security configuration
-
-This is an extension of spring _WebSecurityConfigurerAdapter_. Enable the web-security parameters and user authentication provider set through this implementation.
-
-1.
-  1. 1.3Oauth2 Token generator
-
-This is an extension of spring AuthorizationServerConfigurerAdapter_._ Which willcreate a jwt token store.  (Using the key tool to generate the key store, which contains the public/ private key) and the token is getting encrypted by using this private key. The public key is shared across the Resource server for decrypt the token. Please make sure that all the resource server contains the same public key when the key is again generated.
-
-1.
-  1. 1.4User Authentication
-
-Currently User authentication can done by following two way
-
-1. LDAP authentication
-2. JDBC based authtication (DB)
-
-1.
-  1.
-    1. 1.4.1LDAP authentication
-
-For LDAP authentication, Authorization server needs to configure the below property in application.properties file under the resource directory.
+  4. User Authentication
+  Currently User authentication can done by following two ways
+    1. LDAP authentication
+    For LDAP authentication, Authorization server needs to configure the below property in application.properties file under the resource directory.
 
 | authentication.AuthenticationBuilder=com.flytxt.security.jwtoauthserver.authBuilder.DBAuthenticationBuilder |
 | --- |
@@ -65,18 +47,16 @@ Configure the organizational unit and appropriate role along with the directory 
 | authentication.mode.ldap.activeDirectoryDomain=flytxt.comauthentication.mode.ldap.activeDirectoryUrl=ldap://192.168.125.10:389 |
 | --- |
 
-1.
-  1.
-    1. 1.4.21.4.2 JDBC based authtication (DB)
-
-Which is the traditional way of the user validation with user name, password and roles which are validated against the database table **users** and **Use\_roles.**
+    
+    2. JDBC based authtication (DB)
+    Which is the traditional way of the user validation with user name, password and roles which are validated against the database table **users** and **Use\_roles.**
 
 Configure the spring property authentication.AuthenticationBuilderin application .properties
 
 | authentication.AuthenticationBuilder=com.flytxt.security.jwtoauthserver.authBuilder.LdapAuthenticationBuilder |
 | --- |
 
-1. 2. **Resource**  **Server**
+2. Resource Server
 
 The server which hosts the protected resources, this server should be able to accept the access tokens issued by the  **Authorization Server**  and respond with the protected resource if the access token is valid.
 
