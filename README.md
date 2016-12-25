@@ -1,3 +1,13 @@
+# What are micro-services?
+A postman will only do mail delivery not also laundadry. My bad, the pipe program in *nux systen can only send the output of one program to another program nothing less nothing more. If processing is needed use another program. Similarly, Microservices is a specialisation of an implementation approach for service-oriented architectures (SOA) used to build flexible, independently deployable software systems, wherein each service will do just one thing.
+Representational state transfer** (REST)**  or RESTful Web services are one way of providing interoperability between computer systems on the Internet, & they provide capability to access and manipulate textual representations of Web resources using a uniform and predefined set of stateless operations, which are inturn a great way of expressing micro-services. for eg lets say, there is a rest interface to manage user which lets say is our user-management-micro-service; the next big thing is how to secure it (authorize and authenticate)? **JWT** can help
+
+# What is JSON Web Token?
+
+JSON Web Token (JWT) is an open standard (RFC 7519) that defines a compact and self-contained way for securely transmitting information between parties as a JSON object. This information can be verified and trusted because it is digitally signed. JWTs can be signed using a secret (with the HMAC algorithm) or a public/private key pair using RSA.
+
+# JOT & MICRO-services
+
 # Overview
 
 Spring Security OAuth 2 is an implementation of OAuth 2 that built on top of Spring Security, which itself is a very extensible authentication framework. In our architecture we can have  **single**  Authorization Server which is responsible to issue access token which can be consumed by  **multiple**  Resource Servers.  In overall Spring Security authentication includes 2 steps, creating an authentication object for each request and applying authorization check depending on authentication.
