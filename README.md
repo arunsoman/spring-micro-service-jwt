@@ -44,8 +44,9 @@ If the authentication type is LDAP, it looking some more parameters from the app
 
 Configure the organizational unit and appropriate role along with the directory URL, if required
 
-| authentication.mode.ldap.activeDirectoryDomain=flytxt.comauthentication.mode.ldap.activeDirectoryUrl=ldap://192.168.125.10:389 |
-| --- |
+| authentication.mode.ldap.activeDirectoryDomain=flytxt.com 
+  authentication.mode.ldap.activeDirectoryUrl=ldap://192.168.125.10:389 
+|
 
     
     2. JDBC based authtication (DB)
