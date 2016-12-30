@@ -13,7 +13,7 @@ With JWT there are following entities
 -- Client
 -- Auth server
 -- Services
-TODO: flow diagram
+![Alt text](/jwt-aouth-server/OAuthRoles.jpg?raw=true "Request Flow")
 
 # Project Overview
 There is  **single**  Authorization Server responsible to issue access token which can be consumed by  **multiple**  Resource Servers.  In overall Spring Security authentication includes 2 steps, creating an authentication object for each request and applying authorization check depending on authentication.
